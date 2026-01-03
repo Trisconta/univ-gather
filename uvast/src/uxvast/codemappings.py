@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import os
-import xml.etree.ElementTree as ET
 import ctcodes
 from cterritories import CLDRTerritories
 
