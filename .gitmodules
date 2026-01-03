@@ -1,0 +1,6 @@
+[submodule "uvast/m3iso"]
+	path = uvast/m3iso
+	url = ../m3iso.git
+[submodule "uvast/cldr"]
+	path = uvast/cldr
+	url = ../cldr.git
