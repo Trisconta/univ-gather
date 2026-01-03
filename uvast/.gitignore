@@ -1,0 +1,6 @@
+/src/uxvast/supplementalData.xml
+
+# Python related, etc.
+__pycache__/
+.cache
+

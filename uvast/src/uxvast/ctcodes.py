@@ -16,6 +16,9 @@ class CLDRTerritoryCodes(genclass.GenData):
         self._root = None
         self._contexts = tup
         assert tup is not None, "tup"
+        self._ctx = {
+            "cldr-territories": tup[0],
+        }
         self._mappings = None
 
     def load(self):
@@ -31,20 +34,25 @@ class CLDRTerritoryCodes(genclass.GenData):
         if self._root is None:
             self.load()
         mappings = []
+        terr_dct = self._ctx["cldr-territories"]
         for elem in self._root.iter("territoryCodes"):
+            territory = elem.get("type")
+            name = "@" if terr_dct is None else terr_dct.get(territory)
             entry = {
-                "type": elem.get("type"),
+                "type": territory,	# two letter, "PT" = Portugal
                 "numeric": elem.get("numeric"),
                 "alpha3": elem.get("alpha3"),
             }
+            if name != "@":
+                entry["en-name"] = name
             mappings.append(entry)
-        mappings.sort(
+        self._mappings = sorted(
+            mappings,
             key=lambda x: (
                 int(x["numeric"]) if x["numeric"] else 9999,
                 x["type"],
-            )
+            ),
         )
-        self._mappings = mappings
         return mappings
 
     def to_json(self):
@@ -53,7 +61,10 @@ class CLDRTerritoryCodes(genclass.GenData):
             self.extract()
         return self.json_data(self._mappings)
 
-    def save_json(self, output_path, indent=2, ensure_ascii=False):
+    def save_json(self, output_path) -> bool:
         """Write the JSON output to a file."""
         data = self.to_json()
+        if not output_path:
+            return False
         Path(output_path).write_text(data, encoding="utf-8")
+        return True

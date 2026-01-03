@@ -20,6 +20,10 @@ def do_script(args):
         sys.exit(0)
     fname = param[0]
     del param[0]
+    if param:
+        outjson_dir = param[0]
+    else:
+        outjson_dir = ""
     xml_path = os.path.realpath(fname)
     terr = os.path.join(os.path.dirname(os.path.dirname(xml_path)), "main", "en.xml")
     #print("# Territories:", terr)
@@ -32,7 +36,13 @@ def do_script(args):
         xml_path,
         (t_dict,),
     )
-    print(parser.to_json())
+    # ISO-3166-1 related info:
+    #	`cldr-s-iso3166.json` is the 's'-imple information
+    if outjson_dir:
+        json_out = os.path.join(outjson_dir, "cldr-s-iso3166.json")
+        parser.save_json(json_out)
+    else:
+        print(parser.to_json())
     return 0
 
 

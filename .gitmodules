@@ -4,3 +4,6 @@
 [submodule "uvast/cldr"]
 	path = uvast/cldr
 	url = ../cldr.git
+[submodule "uvast/uv-json"]
+	path = uvast/uv-json
+	url = ../uv-json.git
