@@ -72,6 +72,9 @@ class JsonParser:
         assert self._found_keys, self.name
         return self._found_keys[0]
 
+    def by_key(self):
+        return {} if self._bykey is None else self._bykey
+
     def origin(self) -> tuple:
         return self._origin, self._rpath
 
@@ -105,6 +108,11 @@ class JsonParser:
             astr = sys.stdin.read()
         self._load_json_list(astr)
         return True
+
+    def from_json(self, astr):
+        """ Loads from JSON string """
+        self._bykey, self._keys = None, {}
+        return self._load_json_list(astr.rstrip())
 
     def to_json(self, indent=2, ascii_only=False):
         astr = json.dumps(
