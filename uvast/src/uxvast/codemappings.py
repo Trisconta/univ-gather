@@ -15,8 +15,7 @@ def main():
 def do_script(args):
     param = args
     if not param:
-        print("Usage: python3 codemappings.py supplementalData.xml")
-        sys.exit(0)
+        return None
     fname = param[0]
     del param[0]
     if param:
