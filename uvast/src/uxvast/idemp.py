@@ -7,17 +7,19 @@ should show:
 	::: detected key: **type**
 """
 
+# pylint: disable=missing-function-docstring
+
 import sys
 import os.path
 import json
 
 
 def main():
+    """ Test class JsonParser """
     code = do_script(sys.argv[1:])
     if code is None:
         print("Usage: python3 {__file__} [options] [file1.json ...]")
     sys.exit(0 if code is None else code)
-
 
 def do_script(args):
     param = args
@@ -124,10 +126,15 @@ class JsonParser:
             return True
         if not isinstance(json_data, str):
             raise TypeError(f"Expected a string: {self.name}")
+        suffix = f": {self._origin}" if self._origin else ""
         try:
             json_data = json.loads(json_data)
         except json.JSONDecodeError as exc:
-            raise ValueError(f"Invalid JSON input: {exc}")
+            raise ValueError(
+                f"Invalid JSON input{suffix}, as: {exc}"
+            )
+            # ...pylint would like better:
+            #raise ValueError(f"Invalid JSON input{suffix}") from exc
         lst, dct = self._list_to_internal(json_data)
         self._data, self._bykey = lst, dct
         return True
