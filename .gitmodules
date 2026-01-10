@@ -10,3 +10,6 @@
 [submodule "misc/pt/copilot-gratis"]
 	path = misc/pt/copilot-gratis
 	url = ../copilot-gratis.git
+[submodule "misc/pt/gitfacil"]
+	path = misc/pt/gitfacil
+	url = ../gitfacil.git
