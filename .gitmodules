@@ -7,3 +7,6 @@
 [submodule "uvast/uv-json"]
 	path = uvast/uv-json
 	url = ../uv-json.git
+[submodule "misc/pt/copilot-gratis"]
+	path = misc/pt/copilot-gratis
+	url = ../copilot-gratis.git
