@@ -13,3 +13,6 @@
 [submodule "misc/pt/gitfacil"]
 	path = misc/pt/gitfacil
 	url = ../gitfacil.git
+[submodule "misc/json-and"]
+	path = misc/json-and
+	url = ../json-and.git
